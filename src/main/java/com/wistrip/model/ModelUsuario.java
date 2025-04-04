@@ -1,0 +1,102 @@
+package com.wistrip.model;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.hateoas.RepresentationModel;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.UUID;
+
+@Entity
+@Table(name = "tb_usuarios")
+public class ModelUsuario extends
+        RepresentationModel<ModelUsuario> implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+
+    @NotBlank(message = "O nome não pode ser vazio!")
+    @Column(nullable = false)
+    private String nome;
+
+    @NotBlank(message = "O email não pode ser vazio!")
+    @Column(nullable = false)
+    private String email;
+
+    @NotNull(message = "A senha não pode ser vazia!")
+    @Column(nullable = false)
+    private String senha;
+
+    @NotNull(message = "A data não ser vazio")
+    @Column(nullable = false)
+    private Date data_nascimento;
+
+
+    private String telefone;
+
+    private String foto;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public @NotBlank(message = "O nome não pode ser vazio!") String getNome() {
+        return nome;
+    }
+
+    public void setNome(@NotBlank(message = "O nome não pode ser vazio!") String nome) {
+        this.nome = nome;
+    }
+
+    public @NotBlank(message = "O email não pode ser vazio!") String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@NotBlank(message = "O email não pode ser vazio!") String email) {
+        this.email = email;
+    }
+
+    public @NotNull(message = "A senha não pode ser vazia!") String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(@NotNull(message = "A senha não pode ser vazia!") String senha) {
+        this.senha = senha;
+    }
+
+    public @NotNull(message = "A data não ser vazio") Date getData_nascimento() {
+        return data_nascimento;
+    }
+
+    public void setData_nascimento(@NotNull(message = "A data não ser vazio") Date data_nascimento) {
+        this.data_nascimento = data_nascimento;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+}
