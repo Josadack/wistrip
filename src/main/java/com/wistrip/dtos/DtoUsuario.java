@@ -1,10 +1,12 @@
 package com.wistrip.dtos;
 
+import com.wistrip.model.ViagemModel;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public record DtoUsuario(

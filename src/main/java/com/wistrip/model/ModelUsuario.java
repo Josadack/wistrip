@@ -1,5 +1,7 @@
 package com.wistrip.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,12 +9,13 @@ import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "tb_usuarios")
+
 public class ModelUsuario extends
         RepresentationModel<ModelUsuario> implements Serializable {
 
@@ -44,12 +47,30 @@ public class ModelUsuario extends
 
     private String foto;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties("usuario")
+    @JsonManagedReference
+    private List<ViagemModel> viagem;
+
+    public List<ViagemModel> getViagemModel() {
+        return viagem;
+    }
+
+
     public UUID getId() {
         return id;
     }
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public List<ViagemModel> getViagem() {
+        return viagem;
+    }
+
+    public void setViagem(List<ViagemModel> viagem) {
+        this.viagem = viagem;
     }
 
     public @NotBlank(message = "O nome não pode ser vazio!") String getNome() {
@@ -99,4 +120,5 @@ public class ModelUsuario extends
     public void setFoto(String foto) {
         this.foto = foto;
     }
+
 }

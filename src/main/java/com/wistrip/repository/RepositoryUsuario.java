@@ -12,4 +12,6 @@ public interface RepositoryUsuario extends JpaRepository<ModelUsuario, UUID> {
     public List<ModelUsuario> findAllByNomeContainingIgnoreCase(@Param("nome") String nome);
 
     boolean existsByEmail(@NotBlank(message = "O email não pode ser vazio!") String email);
+
+    boolean existsById(UUID id);
 }

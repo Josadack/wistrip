@@ -39,4 +39,8 @@ public class ServiceUsuario {
     public boolean existsByEmail(@NotBlank(message = "O email não pode ser vazio!") String email) {
         return repositoryUsuario.existsByEmail(email);
     }
+
+    public boolean existsById(UUID id) {
+        return repositoryUsuario.existsById(id);
+    }
 }
