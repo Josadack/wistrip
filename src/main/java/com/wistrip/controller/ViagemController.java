@@ -72,7 +72,7 @@ public class ViagemController {
             if(serviceUsuario.existsById(viagemModel.getUsuario().getId()))
                 return ResponseEntity.status(HttpStatus.OK)
                         .body(viagemService.save(viagemModel));
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario não existe!", null);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não existe!", null);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }

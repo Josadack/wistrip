@@ -41,7 +41,7 @@ public class DestinoController {
     @GetMapping("/{id}")
     public ResponseEntity<DestinoModel> getOne(@PathVariable Long id){
         return destinoService.findById(id)
-                .map(resposta -> ResponseEntity.ok(resposta))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 

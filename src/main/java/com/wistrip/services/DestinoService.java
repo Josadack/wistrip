@@ -44,4 +44,8 @@ public class DestinoService {
     public void delete(DestinoModel destinoModel) {
         destinoRepository.delete(destinoModel);
     }
+
+    public boolean existsById(Long id) {
+        return destinoRepository.existsById(id);
+    }
 }

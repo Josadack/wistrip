@@ -52,11 +52,16 @@ public class ViagemModel{
     @Column(nullable = false, length = 100)
     private String moeda;
 
+    //Relacionamento com Usuário
     @ManyToOne
     @JsonIgnoreProperties("viagem")
     @JsonBackReference
     private ModelUsuario usuario;
 
+    //Relacionamento com Destino
+    @ManyToOne
+    @JsonIgnoreProperties("viagem")
+    private DestinoModel destino;
 
     public Long getId() {
         return id;
@@ -136,5 +141,13 @@ public class ViagemModel{
 
     public void setUsuario(ModelUsuario usuario) {
         this.usuario = usuario;
+    }
+
+    public DestinoModel getDestino() {
+        return destino;
+    }
+
+    public void setDestino(DestinoModel destino) {
+        this.destino = destino;
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface DestinoRepository extends JpaRepository<DestinoModel, Long> {
 
+    boolean existsById(Long id);
     List<DestinoModel> findByDescricaoContainingIgnoreCase(@Param("descricao")String descricao);
     List<DestinoModel> findByInteressesContainingIgnoreCase(@Param("interesses")String interesses);
 }

@@ -1,5 +1,6 @@
 package com.wistrip.dtos;
 
+import com.wistrip.model.AcomodacaoModel;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 
@@ -15,5 +16,6 @@ public record DestinoDto(
 
         @Column(length = 100)
         String interesses
+
 ) {
 }

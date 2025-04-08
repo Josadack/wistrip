@@ -1,5 +1,6 @@
 package com.wistrip.dtos;
 
+import com.wistrip.model.DestinoModel;
 import com.wistrip.model.ModelUsuario;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -38,6 +39,8 @@ public record ViagemDto(
         String moeda,
 
        @NotNull
-        ModelUsuario usuario
+        ModelUsuario usuario,
+
+        DestinoModel destino
 ) {
 }
