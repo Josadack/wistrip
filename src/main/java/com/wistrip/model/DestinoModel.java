@@ -34,6 +34,11 @@ public class DestinoModel {
     @JsonIgnoreProperties("destino")
     private List<ViagemModel> viagem;
 
+    //Relacionamento com Atividade
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "destino", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties("destino")
+    private List<AtividadeModel> atividade;
+
     public List<AcomodacaoModel> getAcomodacao() {
         return acomodacao;
     }
@@ -48,6 +53,14 @@ public class DestinoModel {
 
     public void setViagem(List<ViagemModel> viagem) {
         this.viagem = viagem;
+    }
+
+    public List<AtividadeModel> getAtividade() {
+        return atividade;
+    }
+
+    public void setAtividade(List<AtividadeModel> atividade) {
+        this.atividade = atividade;
     }
 
     public Long getId() {
