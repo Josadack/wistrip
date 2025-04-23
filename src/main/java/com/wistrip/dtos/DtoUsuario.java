@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -23,7 +24,7 @@ public record DtoUsuario(
         String senha,
 
         @NotNull(message = "A data de nascimento não pode ser vazia!")
-        Date data_nascimento,
+        LocalDate data_nascimento,
 
         String telefone,
 

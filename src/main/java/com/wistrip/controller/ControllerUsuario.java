@@ -2,6 +2,7 @@ package com.wistrip.controller;
 
 import com.wistrip.dtos.DtoUsuario;
 import com.wistrip.model.ModelUsuario;
+import com.wistrip.model.UsuarioLoginM;
 import com.wistrip.services.ServiceUsuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -18,7 +19,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/usuarios")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ControllerUsuario {
 
@@ -26,16 +27,9 @@ public class ControllerUsuario {
     private ServiceUsuario serviceUsuario;
 
     //Listar Todos os Usuarios
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<ModelUsuario>> getAll() {
-        List<ModelUsuario> usuarioList = serviceUsuario.findAll();
-        if (!usuarioList.isEmpty()) {
-            for (ModelUsuario usuario : usuarioList) {
-                UUID id = usuario.getId();
-                usuario.add(linkTo(methodOn(ControllerUsuario.class).getOne(id)).withSelfRel());
-            }
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioList);
+        return ResponseEntity.ok(serviceUsuario.findAll());
     }
 
 
@@ -59,27 +53,34 @@ public class ControllerUsuario {
         return ResponseEntity.ok(serviceUsuario.findAllByNomeContainingIgnoreCase(nome));
     }
 
+    @PostMapping("/logar")
+    public ResponseEntity<UsuarioLoginM> autenticarUsuario(@RequestBody Optional<UsuarioLoginM> usuarioLogin){
+
+        return serviceUsuario.autenticarUsuario(usuarioLogin)
+                .map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
+                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    }
+
     //Criar usuario
-    @PostMapping
-    public ResponseEntity<Object> postUser(@Valid @RequestBody DtoUsuario dtoUsuario){
-        if(serviceUsuario.existsByEmail(dtoUsuario.email())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuário já estar cadastrado");
-        }
-        var modelUsers = new ModelUsuario();
-        BeanUtils.copyProperties(dtoUsuario, modelUsers);
-        return ResponseEntity.status(HttpStatus.CREATED).body(serviceUsuario.save(modelUsers));
+    @PostMapping("/cadastrar")
+    public ResponseEntity<ModelUsuario> cadastrarUsuario(@RequestBody @Valid ModelUsuario usuario) {
+
+        return serviceUsuario.cadastrarUsuario(usuario)
+                .map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
+                .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+
     }
 
     //Atualizar usuario
-    @PutMapping
-    public ResponseEntity<ModelUsuario> putUsers(@Valid @RequestBody DtoUsuario dtoUsuario){
-        var modelUsers = new ModelUsuario();
-        BeanUtils.copyProperties(dtoUsuario, modelUsers);
-        return serviceUsuario.findById(modelUsers.getId())
-                .map(resposta -> ResponseEntity.status(HttpStatus.OK)
-                        .body(serviceUsuario.save(modelUsers)))
+    @PutMapping("/atualizar")
+    public ResponseEntity<ModelUsuario> atualizarUsuario(@Valid @RequestBody ModelUsuario usuario) {
+
+        return serviceUsuario.atualizarUsuario(usuario)
+                .map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+
     }
+
 
 
 

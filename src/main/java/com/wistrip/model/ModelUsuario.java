@@ -2,6 +2,7 @@ package com.wistrip.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -30,6 +32,7 @@ public class ModelUsuario extends
     @Column(nullable = false)
     private String nome;
 
+    @Schema(example = "email@email.com.br")
     @NotBlank(message = "O email não pode ser vazio!")
     @Column(nullable = false)
     private String email;
@@ -40,7 +43,7 @@ public class ModelUsuario extends
 
     @NotNull(message = "A data não ser vazio")
     @Column(nullable = false)
-    private Date data_nascimento;
+    private LocalDate data_nascimento;
 
 
     private String telefone;
@@ -97,11 +100,11 @@ public class ModelUsuario extends
         this.senha = senha;
     }
 
-    public @NotNull(message = "A data não ser vazio") Date getData_nascimento() {
+    public LocalDate getData_nascimento() {
         return data_nascimento;
     }
 
-    public void setData_nascimento(@NotNull(message = "A data não ser vazio") Date data_nascimento) {
+    public void setData_nascimento(@NotNull(message = "A data não ser vazio") LocalDate data_nascimento) {
         this.data_nascimento = data_nascimento;
     }
 
@@ -121,4 +124,16 @@ public class ModelUsuario extends
         this.foto = foto;
     }
 
+
+    public ModelUsuario(UUID id, String nome, String email, String senha, LocalDate data_nascimento, String telefone, String foto) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.data_nascimento = data_nascimento;
+        this.telefone = telefone;
+        this.foto = foto;
+    }
+
+    public ModelUsuario() { }
 }
