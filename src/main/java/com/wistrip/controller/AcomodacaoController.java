@@ -62,7 +62,7 @@ public class AcomodacaoController {
     }
 
     //Atualizar Acomodação
-    @PutMapping("/{id}")
+    @PutMapping()
     public ResponseEntity<AcomodacaoModel> putAcomodacao(@RequestBody @Valid AcomodacaoDto acomodacaoDto){
         var acomodacaoModel = new AcomodacaoModel();
         BeanUtils.copyProperties(acomodacaoDto, acomodacaoModel);
