@@ -1,8 +1,6 @@
 # 🧭 Assistente Virtual de Viagens  
 ### Arquitetura Escalável e Eficiente com Spring Boot
 
-**Josadaque Ferreira**  
-Desenvolvedor Junior | Java | Spring Boot | SQL | JavaScript Full Stack | Linux  
 📅 Atualizado em: 8 de abril de 2025  
 📢 #OPEN_TO_WORK  
 
